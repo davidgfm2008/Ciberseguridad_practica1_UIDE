@@ -1,5 +1,5 @@
 import requests
-
+from mongodb import client
 
 def get_price(ticker: str, verbose: bool = False) -> dict:
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
@@ -16,3 +16,8 @@ def get_price(ticker: str, verbose: bool = False) -> dict:
         "precio": precio,
         "moneda": currency
     }
+
+
+def set_price(document: dict):
+    _ = client.get_database('tickers').get_collection('david').insert_one(document=document)
+    return 'ok'
